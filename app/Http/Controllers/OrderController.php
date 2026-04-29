@@ -1,31 +1,37 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class OrderController extends Controller
 {
-    public function checkout(Request $request) {
-        if (!Auth::check()) {
-            return response()->json(['status' => 'error', 'message' => 'Debes iniciar sesión para comprar.']);
-        }
-
+    public function checkout(Request $request)
+    {
         $cart = $request->input('cart', []);
         if (empty($cart)) {
             return response()->json(['status' => 'error', 'message' => 'El carrito está vacío.']);
         }
 
+        if (! Auth::check()) {
+            return response()->json(['status' => 'error', 'message' => 'Debes registrarte o iniciar sesión para comprar.']);
+        }
+
         try {
             DB::beginTransaction();
+            $userId = Auth::id();
+
             $total = 0;
             foreach ($cart as $item) {
                 $total += $item['price'] * $item['quantity'];
-                
+
                 $product = Product::findOrFail($item['id']);
                 if ($product->stock < $item['quantity']) {
                     throw new \Exception("Stock insuficiente para: " . $product->name);
@@ -35,7 +41,7 @@ class OrderController extends Controller
             }
 
             $order = Order::create([
-                'user_id' => Auth::id(),
+                'user_id' => $userId,
                 'total' => $total,
                 'status' => 'pending'
             ]);

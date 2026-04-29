@@ -1,20 +1,23 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\OrderController;
 
-Route::get('/', [ProductController::class, 'index']);
-Route::get('/login', [AuthController::class, 'index'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/', [ProductController::class, 'home'])->name('home');
 
-// Endpoints API agrupados usando la persistencia y middleware de "Web" (Session)
-Route::group(['prefix' => 'api'], function() {
-    Route::get('/products', [ProductController::class, 'getProducts']);
-    Route::post('/auth/login', [AuthController::class, 'login']);
-    Route::get('/auth/session', [AuthController::class, 'session']);
-    Route::post('/orders/checkout', [OrderController::class, 'checkout']);
+
+// Exponer endpoint de checkout también por web para que el frontend pueda llamarlo
+Route::post('/orders/checkout', [OrderController::class, 'checkout']);
+Route::get('/dashboard', [ProductController::class, 'index'])->name('dashboard');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__ . '/auth.php';

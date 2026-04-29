@@ -1,49 +1,47 @@
-@extends('layouts.app')
+<x-guest-layout>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-@section('content')
-<div class="auth-container">
-    <h2 class="text-center mb-2" style="color: var(--primary);">Bienvenido a ConstruTec</h2>
-    <p class="text-center mb-2" style="color: var(--gray-mid); font-size: 0.9em;">Inicia sesión para comprar.</p>
-    <form id="login-form">
-        <div class="form-group">
-            <label>Correo Electrónico</label>
-            <input type="email" id="email" class="form-control" placeholder="admin@construtec.com" required>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <!-- Email Address -->
+        <div>
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-        <div class="form-group">
-            <label>Contraseña</label>
-            <input type="password" id="password" class="form-control" placeholder="admin123" required>
+
+        <!-- Password -->
+        <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
+
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
-        <button type="submit" class="btn-primary" style="width:100%; font-size: 1.1rem; padding: 1rem;">Iniciar Sesión</button>
+
+        <!-- Remember Me -->
+        <div class="block mt-4">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
+                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+            </label>
+        </div>
+
+        <div class="flex items-center justify-end mt-4">
+            @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
+
+            <x-primary-button class="ms-3">
+                {{ __('Log in') }}
+            </x-primary-button>
+        </div>
     </form>
-    <div id="login-error" style="color: red; margin-top: 15px; text-align: center; font-weight: bold;"></div>
-</div>
-
-<script>
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken
-        },
-        body: JSON.stringify({ email, password })
-    });
-    
-    try {
-        const data = await res.json();
-        if(data.status === 'success') {
-            if(data.role === 'admin') window.location.href = '/admin';
-            else window.location.href = '/';
-        } else {
-            document.getElementById('login-error').innerText = data.message;
-        }
-    } catch(err) {
-        document.getElementById('login-error').innerText = "Error en servidor";
-    }
-});
-</script>
-@endsection
+</x-guest-layout>
