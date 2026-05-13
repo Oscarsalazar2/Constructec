@@ -1,3 +1,235 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn-primary {
+        @apply inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:shadow-orange-500/40;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center rounded-xl border border-orange-300/80 bg-white/10 px-5 py-3 text-sm font-semibold text-orange-100 backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/15;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center rounded-full border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-orange-300 hover:bg-orange-50;
+    }
+
+    .btn-danger {
+        @apply inline-flex items-center justify-center rounded-full border border-rose-200 px-3 py-2 text-xs font-semibold text-rose-600 transition hover:bg-rose-50;
+    }
+
+    .eyebrow {
+        @apply text-xs font-bold uppercase tracking-[0.3em] text-orange-200;
+    }
+
+    .muted {
+        @apply text-slate-500;
+    }
+
+    .surface-card,
+    .admin-card,
+    .hero-panel {
+        @apply rounded-3xl bg-white shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-slate-200;
+    }
+
+    .hero {
+        @apply grid gap-8 rounded-[2rem] bg-[linear-gradient(135deg,#1a2332_0%,#2D3436_52%,#1E272E_100%)] px-6 py-16 text-center text-white shadow-[0_30px_80px_rgba(15,23,42,0.24)] lg:grid-cols-[1.25fr_0.95fr] lg:px-10 lg:py-20;
+    }
+
+    .hero-panel {
+        @apply relative overflow-hidden bg-transparent p-0 ring-0 shadow-none;
+    }
+
+    .hero-side {
+        @apply grid gap-6;
+    }
+
+    .hero-actions {
+        @apply mt-6 flex flex-wrap items-center justify-center gap-4;
+    }
+
+    .hero-stats {
+        @apply mx-auto mt-10 grid max-w-4xl gap-4 border-t border-white/15 pt-8 sm:grid-cols-3;
+    }
+
+    .hero-stat {
+        @apply rounded-2xl bg-white/5 px-5 py-4 backdrop-blur-sm transition hover:-translate-y-1;
+    }
+
+    .feature-card {
+        @apply rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm transition hover:-translate-y-2 hover:shadow-xl;
+    }
+
+    .section-heading {
+        @apply flex flex-col items-center justify-between gap-4 text-center lg:flex-row lg:text-left;
+    }
+
+    .section-title {
+        @apply text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl;
+    }
+
+    .section-copy {
+        @apply mx-auto max-w-2xl text-sm text-slate-600 sm:text-base;
+    }
+
+    .section-actions {
+        @apply flex flex-wrap items-center justify-center gap-3 lg:justify-start;
+    }
+
+    .products-grid {
+        @apply grid gap-6 md:grid-cols-2 xl:grid-cols-4;
+    }
+
+    .product-card {
+        @apply overflow-hidden rounded-3xl bg-white shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-slate-200 transition hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(15,23,42,0.14)];
+    }
+
+    .product-media {
+        @apply relative;
+    }
+
+    .product-badge {
+        @apply absolute right-3 top-3 rounded-full bg-slate-950/80 px-3 py-1 text-xs font-semibold text-white shadow-lg;
+    }
+
+    .product-image {
+        @apply h-56 w-full object-cover transition duration-300 hover:scale-105;
+    }
+
+    .product-title {
+        @apply mt-2 text-lg font-bold text-slate-900;
+    }
+
+    .product-price {
+        @apply mt-1 text-2xl font-extrabold text-orange-500;
+    }
+
+    .product-info {
+        @apply mt-3 text-sm leading-6 text-slate-600;
+    }
+
+    .inline-meta {
+        @apply mt-3 flex flex-wrap items-center gap-2;
+    }
+
+    .pill {
+        @apply inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700;
+    }
+
+    .pill.warn {
+        @apply bg-orange-100 text-orange-700;
+    }
+
+    .wholesale-list {
+        @apply mt-4 space-y-2;
+    }
+
+    .wholesale-row {
+        @apply flex items-center justify-between gap-3 rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-600;
+    }
+
+    .helper {
+        @apply rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-500;
+    }
+
+    .qty-control {
+        @apply mt-4 flex items-center justify-center gap-2;
+    }
+
+    .admin-shell {
+        @apply space-y-8 py-10;
+    }
+
+    .admin-hero {
+        @apply bg-white p-8 md:p-10;
+    }
+
+    .metric-grid {
+        @apply grid gap-4 sm:grid-cols-2 xl:grid-cols-5;
+    }
+
+    .metric-card {
+        @apply rounded-3xl bg-white p-6 text-center shadow-[0_12px_30px_rgba(15,23,42,0.08)] ring-1 ring-slate-200;
+    }
+
+    .admin-layout {
+        @apply grid gap-8 lg:grid-cols-[240px_minmax(0,1fr)];
+    }
+
+    .admin-sidebar {
+        @apply flex flex-col gap-3 p-4;
+    }
+
+    .admin-sidebar a {
+        @apply flex items-center justify-between rounded-2xl px-4 py-3 font-semibold text-slate-700 transition hover:bg-orange-50 hover:text-orange-600;
+    }
+
+    .admin-content {
+        @apply space-y-8;
+    }
+
+    .admin-section {
+        @apply space-y-6;
+    }
+
+    .admin-section-header {
+        @apply flex items-center justify-between gap-4;
+    }
+
+    .form-grid {
+        @apply grid gap-4 md:grid-cols-2;
+    }
+
+    .split-fields {
+        @apply grid gap-4 md:grid-cols-2;
+    }
+
+    .mini-form {
+        @apply space-y-4;
+    }
+
+    .field-label {
+        @apply mb-2 block text-sm font-semibold text-slate-700;
+    }
+
+    .form-input,
+    .form-textarea {
+        @apply w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10;
+    }
+
+    .form-textarea {
+        @apply min-h-28 resize-y;
+    }
+
+    .card-grid {
+        @apply grid gap-6 xl:grid-cols-2;
+    }
+
+    .cart-overlay {
+        @apply fixed inset-0 z-50 hidden items-start justify-end bg-slate-950/60 p-0 backdrop-blur-sm;
+    }
+
+    .cart-drawer {
+        @apply flex h-[100dvh] w-full max-w-md flex-col overflow-hidden rounded-l-3xl bg-white shadow-[0_30px_80px_rgba(15,23,42,0.35)];
+        animation: slide-in-right 0.3s ease-out;
+    }
+
+    @media (min-width: 768px) {
+        .cart-drawer {
+            @apply max-w-lg;
+        }
+    }
+}
+
+@keyframes slide-in-right {
+    from {
+        transform: translateX(100%);
+        opacity: 0.85;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

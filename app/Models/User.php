@@ -23,9 +23,20 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'phone',
+        'address',
+        'city',
+        'state',
+        'postal_code',
+        'rfc',
+        'business_name',
+        'tax_regime',
+        'fiscal_address',
+        'cfdi_usage',
     ];
 
-    public function orders() {
+    public function orders()
+    {
         return $this->hasMany(Order::class);
     }
 

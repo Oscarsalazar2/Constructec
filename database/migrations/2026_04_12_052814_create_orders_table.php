@@ -10,9 +10,21 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('order_number')->unique();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('customer_name');
+            $table->string('customer_phone', 30);
+            $table->string('customer_email')->nullable();
+            $table->string('customer_address');
+            $table->string('customer_city');
+            $table->string('customer_state');
+            $table->string('customer_postal_code', 20);
+            $table->decimal('subtotal', 10, 2)->default(0);
+            $table->foreignId('discount_id')->nullable()->constrained()->nullOnDelete();
+            $table->decimal('discount_amount', 10, 2)->default(0);
             $table->decimal('total', 10, 2);
             $table->string('status')->default('pending');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

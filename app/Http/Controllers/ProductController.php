@@ -9,14 +9,14 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('id', 'asc')->get();
+        $products = Product::with('wholesalePrices')->orderBy('id', 'asc')->get();
 
         return view('dashboard', compact('products'));
     }
 
     public function home()
     {
-        $products = Product::orderBy('id', 'asc')->get();
+        $products = Product::with('wholesalePrices')->orderBy('id', 'asc')->get();
 
         return view('welcome', compact('products'));
     }
@@ -25,7 +25,7 @@ class ProductController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'data' => Product::orderBy('id', 'asc')->get()
+            'data' => Product::with('wholesalePrices')->orderBy('id', 'asc')->get()
         ]);
     }
 }
